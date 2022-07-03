@@ -10,10 +10,10 @@
 	<url>https://twitter.com/home</url>
 	<title>Qué está pasando?</title>
 	<link>https://twitter.com</link>
-	<height>380</height>
-	<width>144</width>
+	<height> 380 </height>
+	<width> 140 </width>
 </image>
-<item>
+<item> 
 <title>Temas recomendados</title>
 <link>https://twitter.com/explore</link>
 <description>Para ti, Tendencias, COVID-19, Noticias, Deportes, Entretenimiento</description>

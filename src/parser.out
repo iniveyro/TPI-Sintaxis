@@ -1,5 +1,9 @@
 Created by PLY version 3.11 (http://www.dabeaz.com/ply)
 
+Unused terminals:
+
+    NUMERO
+
 Grammar
 
 Rule 0     S' -> sigma
@@ -20,19 +24,23 @@ Rule 14    opcionales -> image
 Rule 15    opcionales -> category copy image
 Rule 16    opcionales -> copy image
 Rule 17    image -> IMAGEAPERTURA url title link dimensiones IMAGECERRADURA
-Rule 18    dimensiones -> HEIGHTAPERTURA NUMERO HEIGHTCERRADURA WIDTHAPERTURA NUMERO WIDTHCERRADURA
+Rule 18    dimensiones -> HEIGHTAPERTURA RANGOH HEIGHTCERRADURA WIDTHAPERTURA RANGOW WIDTHCERRADURA
 Rule 19    category -> CATEGORYAPERTURA TEXTO CATEGORYCERRADURA
 Rule 20    copy -> COPYRIGHTAPERTURA TEXTO COPYRIGHTCERRADURA
-Rule 21    link -> LINKAPERTURA LINKA LINKCERRADURA
-Rule 22    link -> LINKAPERTURA LINKB LINKCERRADURA
-Rule 23    title -> TITLEAPERTURA TEXTO TITLECERRADURA
-Rule 24    desc -> DESCRIPTIONAPERTURA TEXTO DESCRIPTIONCERRADURA
-Rule 25    url -> URLAPERTURA LINKA URLCERRADURA
-Rule 26    url -> URLAPERTURA LINKB URLCERRADURA
-Rule 27    item -> ITEMAPERTURA contitem ITEMCERRADURA item
-Rule 28    item -> ITEMAPERTURA contitem ITEMCERRADURA
-Rule 29    contitem -> title link desc
-Rule 30    contitem -> title link desc category
+Rule 21    link -> LINKAPERTURA HTTP LINK LINKCERRADURA
+Rule 22    link -> LINKAPERTURA HTTPS LINK LINKCERRADURA
+Rule 23    link -> LINKAPERTURA FTP LINK LINKCERRADURA
+Rule 24    link -> LINKAPERTURA FTPS LINK LINKCERRADURA
+Rule 25    title -> TITLEAPERTURA TEXTO TITLECERRADURA
+Rule 26    desc -> DESCRIPTIONAPERTURA TEXTO DESCRIPTIONCERRADURA
+Rule 27    url -> URLAPERTURA HTTP LINK URLCERRADURA
+Rule 28    url -> URLAPERTURA HTTPS LINK URLCERRADURA
+Rule 29    url -> URLAPERTURA FTP LINK URLCERRADURA
+Rule 30    url -> URLAPERTURA FTPS LINK URLCERRADURA
+Rule 31    item -> ITEMAPERTURA contitem ITEMCERRADURA item
+Rule 32    item -> ITEMAPERTURA contitem ITEMCERRADURA
+Rule 33    contitem -> title link desc
+Rule 34    contitem -> title link desc category
 
 Terminals, with rules where they appear
 
@@ -43,27 +51,32 @@ CHANNELAPERTURA      : 7 8
 CHANNELCERRADURA     : 7 8
 COPYRIGHTAPERTURA    : 20
 COPYRIGHTCERRADURA   : 20
-DESCRIPTIONAPERTURA  : 24
-DESCRIPTIONCERRADURA : 24
+DESCRIPTIONAPERTURA  : 26
+DESCRIPTIONCERRADURA : 26
 ENCODING             : 5
+FTP                  : 23 29
+FTPS                 : 24 30
 HEIGHTAPERTURA       : 18
 HEIGHTCERRADURA      : 18
+HTTP                 : 21 27
+HTTPS                : 22 28
 IMAGEAPERTURA        : 17
 IMAGECERRADURA       : 17
-ITEMAPERTURA         : 27 28
-ITEMCERRADURA        : 27 28
-LINKA                : 21 25
-LINKAPERTURA         : 21 22
-LINKB                : 22 26
-LINKCERRADURA        : 21 22
-NUMERO               : 18 18
+ITEMAPERTURA         : 31 32
+ITEMCERRADURA        : 31 32
+LINK                 : 21 22 23 24 27 28 29 30
+LINKAPERTURA         : 21 22 23 24
+LINKCERRADURA        : 21 22 23 24
+NUMERO               : 
+RANGOH               : 18
+RANGOW               : 18
 RSSAPERTURA          : 6
 RSSCERRADURA         : 6
-TEXTO                : 19 20 23 24
-TITLEAPERTURA        : 23
-TITLECERRADURA       : 23
-URLAPERTURA          : 25 26
-URLCERRADURA         : 25 26
+TEXTO                : 19 20 25 26
+TITLEAPERTURA        : 25
+TITLECERRADURA       : 25
+URLAPERTURA          : 27 28 29 30
+URLCERRADURA         : 27 28 29 30
 VERSION              : 4 5 6
 WIDTHAPERTURA        : 18
 WIDTHCERRADURA       : 18
@@ -75,20 +88,20 @@ Nonterminals, with rules where they appear
 
 a                    : 1
 b                    : 3
-category             : 11 12 15 30
+category             : 11 12 15 34
 channel              : 6 7
 contchannel          : 7 8
-contitem             : 27 28
+contitem             : 31 32
 copy                 : 12 13 15 16
-desc                 : 9 10 29 30
+desc                 : 9 10 33 34
 dimensiones          : 17
 image                : 14 15 16
-item                 : 9 10 27
-link                 : 9 10 17 29 30
+item                 : 9 10 31
+link                 : 9 10 17 33 34
 opcionales           : 10
 rss                  : 2
 sigma                : 0
-title                : 9 10 17 29 30
+title                : 9 10 17 33 34
 url                  : 17
 xml                  : 2
 
@@ -213,7 +226,7 @@ state 14
     (8) channel -> CHANNELAPERTURA . contchannel CHANNELCERRADURA
     (9) contchannel -> . title link desc item
     (10) contchannel -> . title link desc opcionales item
-    (23) title -> . TITLEAPERTURA TEXTO TITLECERRADURA
+    (25) title -> . TITLEAPERTURA TEXTO TITLECERRADURA
 
     TITLEAPERTURA   shift and go to state 18
 
@@ -239,8 +252,10 @@ state 17
 
     (9) contchannel -> title . link desc item
     (10) contchannel -> title . link desc opcionales item
-    (21) link -> . LINKAPERTURA LINKA LINKCERRADURA
-    (22) link -> . LINKAPERTURA LINKB LINKCERRADURA
+    (21) link -> . LINKAPERTURA HTTP LINK LINKCERRADURA
+    (22) link -> . LINKAPERTURA HTTPS LINK LINKCERRADURA
+    (23) link -> . LINKAPERTURA FTP LINK LINKCERRADURA
+    (24) link -> . LINKAPERTURA FTPS LINK LINKCERRADURA
 
     LINKAPERTURA    shift and go to state 21
 
@@ -248,7 +263,7 @@ state 17
 
 state 18
 
-    (23) title -> TITLEAPERTURA . TEXTO TITLECERRADURA
+    (25) title -> TITLEAPERTURA . TEXTO TITLECERRADURA
 
     TEXTO           shift and go to state 22
 
@@ -269,7 +284,7 @@ state 20
 
     (9) contchannel -> title link . desc item
     (10) contchannel -> title link . desc opcionales item
-    (24) desc -> . DESCRIPTIONAPERTURA TEXTO DESCRIPTIONCERRADURA
+    (26) desc -> . DESCRIPTIONAPERTURA TEXTO DESCRIPTIONCERRADURA
 
     DESCRIPTIONAPERTURA shift and go to state 25
 
@@ -277,18 +292,22 @@ state 20
 
 state 21
 
-    (21) link -> LINKAPERTURA . LINKA LINKCERRADURA
-    (22) link -> LINKAPERTURA . LINKB LINKCERRADURA
+    (21) link -> LINKAPERTURA . HTTP LINK LINKCERRADURA
+    (22) link -> LINKAPERTURA . HTTPS LINK LINKCERRADURA
+    (23) link -> LINKAPERTURA . FTP LINK LINKCERRADURA
+    (24) link -> LINKAPERTURA . FTPS LINK LINKCERRADURA
 
-    LINKA           shift and go to state 26
-    LINKB           shift and go to state 27
+    HTTP            shift and go to state 26
+    HTTPS           shift and go to state 27
+    FTP             shift and go to state 28
+    FTPS            shift and go to state 29
 
 
 state 22
 
-    (23) title -> TITLEAPERTURA TEXTO . TITLECERRADURA
+    (25) title -> TITLEAPERTURA TEXTO . TITLECERRADURA
 
-    TITLECERRADURA  shift and go to state 28
+    TITLECERRADURA  shift and go to state 30
 
 
 state 23
@@ -302,8 +321,8 @@ state 24
 
     (9) contchannel -> title link desc . item
     (10) contchannel -> title link desc . opcionales item
-    (27) item -> . ITEMAPERTURA contitem ITEMCERRADURA item
-    (28) item -> . ITEMAPERTURA contitem ITEMCERRADURA
+    (31) item -> . ITEMAPERTURA contitem ITEMCERRADURA item
+    (32) item -> . ITEMAPERTURA contitem ITEMCERRADURA
     (11) opcionales -> . category
     (12) opcionales -> . category copy
     (13) opcionales -> . copy
@@ -314,76 +333,90 @@ state 24
     (20) copy -> . COPYRIGHTAPERTURA TEXTO COPYRIGHTCERRADURA
     (17) image -> . IMAGEAPERTURA url title link dimensiones IMAGECERRADURA
 
-    ITEMAPERTURA    shift and go to state 31
-    CATEGORYAPERTURA shift and go to state 35
-    COPYRIGHTAPERTURA shift and go to state 36
-    IMAGEAPERTURA   shift and go to state 37
+    ITEMAPERTURA    shift and go to state 33
+    CATEGORYAPERTURA shift and go to state 37
+    COPYRIGHTAPERTURA shift and go to state 38
+    IMAGEAPERTURA   shift and go to state 39
 
-    item                           shift and go to state 29
-    opcionales                     shift and go to state 30
-    category                       shift and go to state 32
-    copy                           shift and go to state 33
-    image                          shift and go to state 34
+    item                           shift and go to state 31
+    opcionales                     shift and go to state 32
+    category                       shift and go to state 34
+    copy                           shift and go to state 35
+    image                          shift and go to state 36
 
 state 25
 
-    (24) desc -> DESCRIPTIONAPERTURA . TEXTO DESCRIPTIONCERRADURA
+    (26) desc -> DESCRIPTIONAPERTURA . TEXTO DESCRIPTIONCERRADURA
 
-    TEXTO           shift and go to state 38
+    TEXTO           shift and go to state 40
 
 
 state 26
 
-    (21) link -> LINKAPERTURA LINKA . LINKCERRADURA
+    (21) link -> LINKAPERTURA HTTP . LINK LINKCERRADURA
 
-    LINKCERRADURA   shift and go to state 39
+    LINK            shift and go to state 41
 
 
 state 27
 
-    (22) link -> LINKAPERTURA LINKB . LINKCERRADURA
+    (22) link -> LINKAPERTURA HTTPS . LINK LINKCERRADURA
 
-    LINKCERRADURA   shift and go to state 40
+    LINK            shift and go to state 42
 
 
 state 28
 
-    (23) title -> TITLEAPERTURA TEXTO TITLECERRADURA .
+    (23) link -> LINKAPERTURA FTP . LINK LINKCERRADURA
 
-    LINKAPERTURA    reduce using rule 23 (title -> TITLEAPERTURA TEXTO TITLECERRADURA .)
+    LINK            shift and go to state 43
 
 
 state 29
+
+    (24) link -> LINKAPERTURA FTPS . LINK LINKCERRADURA
+
+    LINK            shift and go to state 44
+
+
+state 30
+
+    (25) title -> TITLEAPERTURA TEXTO TITLECERRADURA .
+
+    LINKAPERTURA    reduce using rule 25 (title -> TITLEAPERTURA TEXTO TITLECERRADURA .)
+
+
+state 31
 
     (9) contchannel -> title link desc item .
 
     CHANNELCERRADURA reduce using rule 9 (contchannel -> title link desc item .)
 
 
-state 30
+state 32
 
     (10) contchannel -> title link desc opcionales . item
-    (27) item -> . ITEMAPERTURA contitem ITEMCERRADURA item
-    (28) item -> . ITEMAPERTURA contitem ITEMCERRADURA
+    (31) item -> . ITEMAPERTURA contitem ITEMCERRADURA item
+    (32) item -> . ITEMAPERTURA contitem ITEMCERRADURA
 
-    ITEMAPERTURA    shift and go to state 31
+    ITEMAPERTURA    shift and go to state 33
 
-    item                           shift and go to state 41
+    item                           shift and go to state 45
 
-state 31
+state 33
 
-    (27) item -> ITEMAPERTURA . contitem ITEMCERRADURA item
-    (28) item -> ITEMAPERTURA . contitem ITEMCERRADURA
-    (29) contitem -> . title link desc
-    (30) contitem -> . title link desc category
-    (23) title -> . TITLEAPERTURA TEXTO TITLECERRADURA
+    (31) item -> ITEMAPERTURA . contitem ITEMCERRADURA item
+    (32) item -> ITEMAPERTURA . contitem ITEMCERRADURA
+    (33) contitem -> . title link desc
+    (34) contitem -> . title link desc category
+    (25) title -> . TITLEAPERTURA TEXTO TITLECERRADURA
 
     TITLEAPERTURA   shift and go to state 18
 
-    contitem                       shift and go to state 42
-    title                          shift and go to state 43
+    contitem                       shift and go to state 46
+    title                          shift and go to state 47
 
-state 32
+state 34
 
     (11) opcionales -> category .
     (12) opcionales -> category . copy
@@ -391,192 +424,244 @@ state 32
     (20) copy -> . COPYRIGHTAPERTURA TEXTO COPYRIGHTCERRADURA
 
     ITEMAPERTURA    reduce using rule 11 (opcionales -> category .)
-    COPYRIGHTAPERTURA shift and go to state 36
+    COPYRIGHTAPERTURA shift and go to state 38
 
-    copy                           shift and go to state 44
+    copy                           shift and go to state 48
 
-state 33
+state 35
 
     (13) opcionales -> copy .
     (16) opcionales -> copy . image
     (17) image -> . IMAGEAPERTURA url title link dimensiones IMAGECERRADURA
 
     ITEMAPERTURA    reduce using rule 13 (opcionales -> copy .)
-    IMAGEAPERTURA   shift and go to state 37
+    IMAGEAPERTURA   shift and go to state 39
 
-    image                          shift and go to state 45
+    image                          shift and go to state 49
 
-state 34
+state 36
 
     (14) opcionales -> image .
 
     ITEMAPERTURA    reduce using rule 14 (opcionales -> image .)
 
 
-state 35
+state 37
 
     (19) category -> CATEGORYAPERTURA . TEXTO CATEGORYCERRADURA
 
-    TEXTO           shift and go to state 46
+    TEXTO           shift and go to state 50
 
-
-state 36
-
-    (20) copy -> COPYRIGHTAPERTURA . TEXTO COPYRIGHTCERRADURA
-
-    TEXTO           shift and go to state 47
-
-
-state 37
-
-    (17) image -> IMAGEAPERTURA . url title link dimensiones IMAGECERRADURA
-    (25) url -> . URLAPERTURA LINKA URLCERRADURA
-    (26) url -> . URLAPERTURA LINKB URLCERRADURA
-
-    URLAPERTURA     shift and go to state 49
-
-    url                            shift and go to state 48
 
 state 38
 
-    (24) desc -> DESCRIPTIONAPERTURA TEXTO . DESCRIPTIONCERRADURA
+    (20) copy -> COPYRIGHTAPERTURA . TEXTO COPYRIGHTCERRADURA
 
-    DESCRIPTIONCERRADURA shift and go to state 50
+    TEXTO           shift and go to state 51
 
 
 state 39
 
-    (21) link -> LINKAPERTURA LINKA LINKCERRADURA .
+    (17) image -> IMAGEAPERTURA . url title link dimensiones IMAGECERRADURA
+    (27) url -> . URLAPERTURA HTTP LINK URLCERRADURA
+    (28) url -> . URLAPERTURA HTTPS LINK URLCERRADURA
+    (29) url -> . URLAPERTURA FTP LINK URLCERRADURA
+    (30) url -> . URLAPERTURA FTPS LINK URLCERRADURA
 
-    DESCRIPTIONAPERTURA reduce using rule 21 (link -> LINKAPERTURA LINKA LINKCERRADURA .)
-    HEIGHTAPERTURA  reduce using rule 21 (link -> LINKAPERTURA LINKA LINKCERRADURA .)
+    URLAPERTURA     shift and go to state 53
 
+    url                            shift and go to state 52
 
 state 40
 
-    (22) link -> LINKAPERTURA LINKB LINKCERRADURA .
+    (26) desc -> DESCRIPTIONAPERTURA TEXTO . DESCRIPTIONCERRADURA
 
-    DESCRIPTIONAPERTURA reduce using rule 22 (link -> LINKAPERTURA LINKB LINKCERRADURA .)
-    HEIGHTAPERTURA  reduce using rule 22 (link -> LINKAPERTURA LINKB LINKCERRADURA .)
+    DESCRIPTIONCERRADURA shift and go to state 54
 
 
 state 41
+
+    (21) link -> LINKAPERTURA HTTP LINK . LINKCERRADURA
+
+    LINKCERRADURA   shift and go to state 55
+
+
+state 42
+
+    (22) link -> LINKAPERTURA HTTPS LINK . LINKCERRADURA
+
+    LINKCERRADURA   shift and go to state 56
+
+
+state 43
+
+    (23) link -> LINKAPERTURA FTP LINK . LINKCERRADURA
+
+    LINKCERRADURA   shift and go to state 57
+
+
+state 44
+
+    (24) link -> LINKAPERTURA FTPS LINK . LINKCERRADURA
+
+    LINKCERRADURA   shift and go to state 58
+
+
+state 45
 
     (10) contchannel -> title link desc opcionales item .
 
     CHANNELCERRADURA reduce using rule 10 (contchannel -> title link desc opcionales item .)
 
 
-state 42
+state 46
 
-    (27) item -> ITEMAPERTURA contitem . ITEMCERRADURA item
-    (28) item -> ITEMAPERTURA contitem . ITEMCERRADURA
+    (31) item -> ITEMAPERTURA contitem . ITEMCERRADURA item
+    (32) item -> ITEMAPERTURA contitem . ITEMCERRADURA
 
-    ITEMCERRADURA   shift and go to state 51
+    ITEMCERRADURA   shift and go to state 59
 
 
-state 43
+state 47
 
-    (29) contitem -> title . link desc
-    (30) contitem -> title . link desc category
-    (21) link -> . LINKAPERTURA LINKA LINKCERRADURA
-    (22) link -> . LINKAPERTURA LINKB LINKCERRADURA
+    (33) contitem -> title . link desc
+    (34) contitem -> title . link desc category
+    (21) link -> . LINKAPERTURA HTTP LINK LINKCERRADURA
+    (22) link -> . LINKAPERTURA HTTPS LINK LINKCERRADURA
+    (23) link -> . LINKAPERTURA FTP LINK LINKCERRADURA
+    (24) link -> . LINKAPERTURA FTPS LINK LINKCERRADURA
 
     LINKAPERTURA    shift and go to state 21
 
-    link                           shift and go to state 52
+    link                           shift and go to state 60
 
-state 44
+state 48
 
     (12) opcionales -> category copy .
     (15) opcionales -> category copy . image
     (17) image -> . IMAGEAPERTURA url title link dimensiones IMAGECERRADURA
 
     ITEMAPERTURA    reduce using rule 12 (opcionales -> category copy .)
-    IMAGEAPERTURA   shift and go to state 37
+    IMAGEAPERTURA   shift and go to state 39
 
-    image                          shift and go to state 53
+    image                          shift and go to state 61
 
-state 45
+state 49
 
     (16) opcionales -> copy image .
 
     ITEMAPERTURA    reduce using rule 16 (opcionales -> copy image .)
 
 
-state 46
+state 50
 
     (19) category -> CATEGORYAPERTURA TEXTO . CATEGORYCERRADURA
 
-    CATEGORYCERRADURA shift and go to state 54
-
-
-state 47
-
-    (20) copy -> COPYRIGHTAPERTURA TEXTO . COPYRIGHTCERRADURA
-
-    COPYRIGHTCERRADURA shift and go to state 55
-
-
-state 48
-
-    (17) image -> IMAGEAPERTURA url . title link dimensiones IMAGECERRADURA
-    (23) title -> . TITLEAPERTURA TEXTO TITLECERRADURA
-
-    TITLEAPERTURA   shift and go to state 18
-
-    title                          shift and go to state 56
-
-state 49
-
-    (25) url -> URLAPERTURA . LINKA URLCERRADURA
-    (26) url -> URLAPERTURA . LINKB URLCERRADURA
-
-    LINKA           shift and go to state 57
-    LINKB           shift and go to state 58
-
-
-state 50
-
-    (24) desc -> DESCRIPTIONAPERTURA TEXTO DESCRIPTIONCERRADURA .
-
-    ITEMAPERTURA    reduce using rule 24 (desc -> DESCRIPTIONAPERTURA TEXTO DESCRIPTIONCERRADURA .)
-    CATEGORYAPERTURA reduce using rule 24 (desc -> DESCRIPTIONAPERTURA TEXTO DESCRIPTIONCERRADURA .)
-    COPYRIGHTAPERTURA reduce using rule 24 (desc -> DESCRIPTIONAPERTURA TEXTO DESCRIPTIONCERRADURA .)
-    IMAGEAPERTURA   reduce using rule 24 (desc -> DESCRIPTIONAPERTURA TEXTO DESCRIPTIONCERRADURA .)
-    ITEMCERRADURA   reduce using rule 24 (desc -> DESCRIPTIONAPERTURA TEXTO DESCRIPTIONCERRADURA .)
+    CATEGORYCERRADURA shift and go to state 62
 
 
 state 51
 
-    (27) item -> ITEMAPERTURA contitem ITEMCERRADURA . item
-    (28) item -> ITEMAPERTURA contitem ITEMCERRADURA .
-    (27) item -> . ITEMAPERTURA contitem ITEMCERRADURA item
-    (28) item -> . ITEMAPERTURA contitem ITEMCERRADURA
+    (20) copy -> COPYRIGHTAPERTURA TEXTO . COPYRIGHTCERRADURA
 
-    CHANNELCERRADURA reduce using rule 28 (item -> ITEMAPERTURA contitem ITEMCERRADURA .)
-    ITEMAPERTURA    shift and go to state 31
+    COPYRIGHTCERRADURA shift and go to state 63
 
-    item                           shift and go to state 59
 
 state 52
 
-    (29) contitem -> title link . desc
-    (30) contitem -> title link . desc category
-    (24) desc -> . DESCRIPTIONAPERTURA TEXTO DESCRIPTIONCERRADURA
+    (17) image -> IMAGEAPERTURA url . title link dimensiones IMAGECERRADURA
+    (25) title -> . TITLEAPERTURA TEXTO TITLECERRADURA
+
+    TITLEAPERTURA   shift and go to state 18
+
+    title                          shift and go to state 64
+
+state 53
+
+    (27) url -> URLAPERTURA . HTTP LINK URLCERRADURA
+    (28) url -> URLAPERTURA . HTTPS LINK URLCERRADURA
+    (29) url -> URLAPERTURA . FTP LINK URLCERRADURA
+    (30) url -> URLAPERTURA . FTPS LINK URLCERRADURA
+
+    HTTP            shift and go to state 65
+    HTTPS           shift and go to state 66
+    FTP             shift and go to state 67
+    FTPS            shift and go to state 68
+
+
+state 54
+
+    (26) desc -> DESCRIPTIONAPERTURA TEXTO DESCRIPTIONCERRADURA .
+
+    ITEMAPERTURA    reduce using rule 26 (desc -> DESCRIPTIONAPERTURA TEXTO DESCRIPTIONCERRADURA .)
+    CATEGORYAPERTURA reduce using rule 26 (desc -> DESCRIPTIONAPERTURA TEXTO DESCRIPTIONCERRADURA .)
+    COPYRIGHTAPERTURA reduce using rule 26 (desc -> DESCRIPTIONAPERTURA TEXTO DESCRIPTIONCERRADURA .)
+    IMAGEAPERTURA   reduce using rule 26 (desc -> DESCRIPTIONAPERTURA TEXTO DESCRIPTIONCERRADURA .)
+    ITEMCERRADURA   reduce using rule 26 (desc -> DESCRIPTIONAPERTURA TEXTO DESCRIPTIONCERRADURA .)
+
+
+state 55
+
+    (21) link -> LINKAPERTURA HTTP LINK LINKCERRADURA .
+
+    DESCRIPTIONAPERTURA reduce using rule 21 (link -> LINKAPERTURA HTTP LINK LINKCERRADURA .)
+    HEIGHTAPERTURA  reduce using rule 21 (link -> LINKAPERTURA HTTP LINK LINKCERRADURA .)
+
+
+state 56
+
+    (22) link -> LINKAPERTURA HTTPS LINK LINKCERRADURA .
+
+    DESCRIPTIONAPERTURA reduce using rule 22 (link -> LINKAPERTURA HTTPS LINK LINKCERRADURA .)
+    HEIGHTAPERTURA  reduce using rule 22 (link -> LINKAPERTURA HTTPS LINK LINKCERRADURA .)
+
+
+state 57
+
+    (23) link -> LINKAPERTURA FTP LINK LINKCERRADURA .
+
+    DESCRIPTIONAPERTURA reduce using rule 23 (link -> LINKAPERTURA FTP LINK LINKCERRADURA .)
+    HEIGHTAPERTURA  reduce using rule 23 (link -> LINKAPERTURA FTP LINK LINKCERRADURA .)
+
+
+state 58
+
+    (24) link -> LINKAPERTURA FTPS LINK LINKCERRADURA .
+
+    DESCRIPTIONAPERTURA reduce using rule 24 (link -> LINKAPERTURA FTPS LINK LINKCERRADURA .)
+    HEIGHTAPERTURA  reduce using rule 24 (link -> LINKAPERTURA FTPS LINK LINKCERRADURA .)
+
+
+state 59
+
+    (31) item -> ITEMAPERTURA contitem ITEMCERRADURA . item
+    (32) item -> ITEMAPERTURA contitem ITEMCERRADURA .
+    (31) item -> . ITEMAPERTURA contitem ITEMCERRADURA item
+    (32) item -> . ITEMAPERTURA contitem ITEMCERRADURA
+
+    CHANNELCERRADURA reduce using rule 32 (item -> ITEMAPERTURA contitem ITEMCERRADURA .)
+    ITEMAPERTURA    shift and go to state 33
+
+    item                           shift and go to state 69
+
+state 60
+
+    (33) contitem -> title link . desc
+    (34) contitem -> title link . desc category
+    (26) desc -> . DESCRIPTIONAPERTURA TEXTO DESCRIPTIONCERRADURA
 
     DESCRIPTIONAPERTURA shift and go to state 25
 
-    desc                           shift and go to state 60
+    desc                           shift and go to state 70
 
-state 53
+state 61
 
     (15) opcionales -> category copy image .
 
     ITEMAPERTURA    reduce using rule 15 (opcionales -> category copy image .)
 
 
-state 54
+state 62
 
     (19) category -> CATEGORYAPERTURA TEXTO CATEGORYCERRADURA .
 
@@ -585,7 +670,7 @@ state 54
     ITEMCERRADURA   reduce using rule 19 (category -> CATEGORYAPERTURA TEXTO CATEGORYCERRADURA .)
 
 
-state 55
+state 63
 
     (20) copy -> COPYRIGHTAPERTURA TEXTO COPYRIGHTCERRADURA .
 
@@ -593,130 +678,188 @@ state 55
     ITEMAPERTURA    reduce using rule 20 (copy -> COPYRIGHTAPERTURA TEXTO COPYRIGHTCERRADURA .)
 
 
-state 56
+state 64
 
     (17) image -> IMAGEAPERTURA url title . link dimensiones IMAGECERRADURA
-    (21) link -> . LINKAPERTURA LINKA LINKCERRADURA
-    (22) link -> . LINKAPERTURA LINKB LINKCERRADURA
+    (21) link -> . LINKAPERTURA HTTP LINK LINKCERRADURA
+    (22) link -> . LINKAPERTURA HTTPS LINK LINKCERRADURA
+    (23) link -> . LINKAPERTURA FTP LINK LINKCERRADURA
+    (24) link -> . LINKAPERTURA FTPS LINK LINKCERRADURA
 
     LINKAPERTURA    shift and go to state 21
 
-    link                           shift and go to state 61
-
-state 57
-
-    (25) url -> URLAPERTURA LINKA . URLCERRADURA
-
-    URLCERRADURA    shift and go to state 62
-
-
-state 58
-
-    (26) url -> URLAPERTURA LINKB . URLCERRADURA
-
-    URLCERRADURA    shift and go to state 63
-
-
-state 59
-
-    (27) item -> ITEMAPERTURA contitem ITEMCERRADURA item .
-
-    CHANNELCERRADURA reduce using rule 27 (item -> ITEMAPERTURA contitem ITEMCERRADURA item .)
-
-
-state 60
-
-    (29) contitem -> title link desc .
-    (30) contitem -> title link desc . category
-    (19) category -> . CATEGORYAPERTURA TEXTO CATEGORYCERRADURA
-
-    ITEMCERRADURA   reduce using rule 29 (contitem -> title link desc .)
-    CATEGORYAPERTURA shift and go to state 35
-
-    category                       shift and go to state 64
-
-state 61
-
-    (17) image -> IMAGEAPERTURA url title link . dimensiones IMAGECERRADURA
-    (18) dimensiones -> . HEIGHTAPERTURA NUMERO HEIGHTCERRADURA WIDTHAPERTURA NUMERO WIDTHCERRADURA
-
-    HEIGHTAPERTURA  shift and go to state 66
-
-    dimensiones                    shift and go to state 65
-
-state 62
-
-    (25) url -> URLAPERTURA LINKA URLCERRADURA .
-
-    TITLEAPERTURA   reduce using rule 25 (url -> URLAPERTURA LINKA URLCERRADURA .)
-
-
-state 63
-
-    (26) url -> URLAPERTURA LINKB URLCERRADURA .
-
-    TITLEAPERTURA   reduce using rule 26 (url -> URLAPERTURA LINKB URLCERRADURA .)
-
-
-state 64
-
-    (30) contitem -> title link desc category .
-
-    ITEMCERRADURA   reduce using rule 30 (contitem -> title link desc category .)
-
+    link                           shift and go to state 71
 
 state 65
 
-    (17) image -> IMAGEAPERTURA url title link dimensiones . IMAGECERRADURA
+    (27) url -> URLAPERTURA HTTP . LINK URLCERRADURA
 
-    IMAGECERRADURA  shift and go to state 67
+    LINK            shift and go to state 72
 
 
 state 66
 
-    (18) dimensiones -> HEIGHTAPERTURA . NUMERO HEIGHTCERRADURA WIDTHAPERTURA NUMERO WIDTHCERRADURA
+    (28) url -> URLAPERTURA HTTPS . LINK URLCERRADURA
 
-    NUMERO          shift and go to state 68
+    LINK            shift and go to state 73
 
 
 state 67
+
+    (29) url -> URLAPERTURA FTP . LINK URLCERRADURA
+
+    LINK            shift and go to state 74
+
+
+state 68
+
+    (30) url -> URLAPERTURA FTPS . LINK URLCERRADURA
+
+    LINK            shift and go to state 75
+
+
+state 69
+
+    (31) item -> ITEMAPERTURA contitem ITEMCERRADURA item .
+
+    CHANNELCERRADURA reduce using rule 31 (item -> ITEMAPERTURA contitem ITEMCERRADURA item .)
+
+
+state 70
+
+    (33) contitem -> title link desc .
+    (34) contitem -> title link desc . category
+    (19) category -> . CATEGORYAPERTURA TEXTO CATEGORYCERRADURA
+
+    ITEMCERRADURA   reduce using rule 33 (contitem -> title link desc .)
+    CATEGORYAPERTURA shift and go to state 37
+
+    category                       shift and go to state 76
+
+state 71
+
+    (17) image -> IMAGEAPERTURA url title link . dimensiones IMAGECERRADURA
+    (18) dimensiones -> . HEIGHTAPERTURA RANGOH HEIGHTCERRADURA WIDTHAPERTURA RANGOW WIDTHCERRADURA
+
+    HEIGHTAPERTURA  shift and go to state 78
+
+    dimensiones                    shift and go to state 77
+
+state 72
+
+    (27) url -> URLAPERTURA HTTP LINK . URLCERRADURA
+
+    URLCERRADURA    shift and go to state 79
+
+
+state 73
+
+    (28) url -> URLAPERTURA HTTPS LINK . URLCERRADURA
+
+    URLCERRADURA    shift and go to state 80
+
+
+state 74
+
+    (29) url -> URLAPERTURA FTP LINK . URLCERRADURA
+
+    URLCERRADURA    shift and go to state 81
+
+
+state 75
+
+    (30) url -> URLAPERTURA FTPS LINK . URLCERRADURA
+
+    URLCERRADURA    shift and go to state 82
+
+
+state 76
+
+    (34) contitem -> title link desc category .
+
+    ITEMCERRADURA   reduce using rule 34 (contitem -> title link desc category .)
+
+
+state 77
+
+    (17) image -> IMAGEAPERTURA url title link dimensiones . IMAGECERRADURA
+
+    IMAGECERRADURA  shift and go to state 83
+
+
+state 78
+
+    (18) dimensiones -> HEIGHTAPERTURA . RANGOH HEIGHTCERRADURA WIDTHAPERTURA RANGOW WIDTHCERRADURA
+
+    RANGOH          shift and go to state 84
+
+
+state 79
+
+    (27) url -> URLAPERTURA HTTP LINK URLCERRADURA .
+
+    TITLEAPERTURA   reduce using rule 27 (url -> URLAPERTURA HTTP LINK URLCERRADURA .)
+
+
+state 80
+
+    (28) url -> URLAPERTURA HTTPS LINK URLCERRADURA .
+
+    TITLEAPERTURA   reduce using rule 28 (url -> URLAPERTURA HTTPS LINK URLCERRADURA .)
+
+
+state 81
+
+    (29) url -> URLAPERTURA FTP LINK URLCERRADURA .
+
+    TITLEAPERTURA   reduce using rule 29 (url -> URLAPERTURA FTP LINK URLCERRADURA .)
+
+
+state 82
+
+    (30) url -> URLAPERTURA FTPS LINK URLCERRADURA .
+
+    TITLEAPERTURA   reduce using rule 30 (url -> URLAPERTURA FTPS LINK URLCERRADURA .)
+
+
+state 83
 
     (17) image -> IMAGEAPERTURA url title link dimensiones IMAGECERRADURA .
 
     ITEMAPERTURA    reduce using rule 17 (image -> IMAGEAPERTURA url title link dimensiones IMAGECERRADURA .)
 
 
-state 68
+state 84
 
-    (18) dimensiones -> HEIGHTAPERTURA NUMERO . HEIGHTCERRADURA WIDTHAPERTURA NUMERO WIDTHCERRADURA
+    (18) dimensiones -> HEIGHTAPERTURA RANGOH . HEIGHTCERRADURA WIDTHAPERTURA RANGOW WIDTHCERRADURA
 
-    HEIGHTCERRADURA shift and go to state 69
-
-
-state 69
-
-    (18) dimensiones -> HEIGHTAPERTURA NUMERO HEIGHTCERRADURA . WIDTHAPERTURA NUMERO WIDTHCERRADURA
-
-    WIDTHAPERTURA   shift and go to state 70
+    HEIGHTCERRADURA shift and go to state 85
 
 
-state 70
+state 85
 
-    (18) dimensiones -> HEIGHTAPERTURA NUMERO HEIGHTCERRADURA WIDTHAPERTURA . NUMERO WIDTHCERRADURA
+    (18) dimensiones -> HEIGHTAPERTURA RANGOH HEIGHTCERRADURA . WIDTHAPERTURA RANGOW WIDTHCERRADURA
 
-    NUMERO          shift and go to state 71
-
-
-state 71
-
-    (18) dimensiones -> HEIGHTAPERTURA NUMERO HEIGHTCERRADURA WIDTHAPERTURA NUMERO . WIDTHCERRADURA
-
-    WIDTHCERRADURA  shift and go to state 72
+    WIDTHAPERTURA   shift and go to state 86
 
 
-state 72
+state 86
 
-    (18) dimensiones -> HEIGHTAPERTURA NUMERO HEIGHTCERRADURA WIDTHAPERTURA NUMERO WIDTHCERRADURA .
+    (18) dimensiones -> HEIGHTAPERTURA RANGOH HEIGHTCERRADURA WIDTHAPERTURA . RANGOW WIDTHCERRADURA
 
-    IMAGECERRADURA  reduce using rule 18 (dimensiones -> HEIGHTAPERTURA NUMERO HEIGHTCERRADURA WIDTHAPERTURA NUMERO WIDTHCERRADURA .)
+    RANGOW          shift and go to state 87
+
+
+state 87
+
+    (18) dimensiones -> HEIGHTAPERTURA RANGOH HEIGHTCERRADURA WIDTHAPERTURA RANGOW . WIDTHCERRADURA
+
+    WIDTHCERRADURA  shift and go to state 88
+
+
+state 88
+
+    (18) dimensiones -> HEIGHTAPERTURA RANGOH HEIGHTCERRADURA WIDTHAPERTURA RANGOW WIDTHCERRADURA .
+
+    IMAGECERRADURA  reduce using rule 18 (dimensiones -> HEIGHTAPERTURA RANGOH HEIGHTCERRADURA WIDTHAPERTURA RANGOW WIDTHCERRADURA .)
 

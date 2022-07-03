@@ -9,7 +9,7 @@ from Lexer import tokens
 from sys import stdin
 
 precendece = (
-	('right','VERSION','ENCODING','NUMERO','TEXTO','URLA','URLB','LINKA','LINKB'),
+	('right','VERSION','ENCODING','NUMERO','TEXTO','URLA','URLB','LINK','RANGOH','RANGOW','HTTP','HTTPS','FTP','FTPS'),
 	('left','DESCRIPTIONAPERTURA','DESCRIPTIONCERRADURA','TITLEAPERTURA','TITLECERRADURA','LINKAPERTURA','LINKCERRADURA'),
 	('left','ITEMAPERTURA','ITEMCERRADURA','URLAPERTURA','URLCERRADURA'),
 	('left','IMAGEAPERTURA','IMAGECERRADURA','COPYRIGHTAPERTURA','COPYRIGHTCERRADURA','CATEGORYAPERTURA','CATEGORYCERRADURA'),
@@ -91,7 +91,7 @@ def p_image(p):
 	print ("image")
 
 def p_dimensiones(p):
-	'''dimensiones : HEIGHTAPERTURA NUMERO HEIGHTCERRADURA WIDTHAPERTURA NUMERO WIDTHCERRADURA'''
+	'''dimensiones : HEIGHTAPERTURA RANGOH HEIGHTCERRADURA WIDTHAPERTURA RANGOW WIDTHCERRADURA'''
 	print ("dimensiones")
 
 def p_category(p):
@@ -103,12 +103,20 @@ def p_copy(p):
 	print ("copy")
 
 def p_link1(p):
-	'''link : LINKAPERTURA LINKA LINKCERRADURA '''
-	print ("link - http o fttp")
+	'''link : LINKAPERTURA HTTP LINK LINKCERRADURA '''
+	print ("link http")
 
 def p_link2(p):
-	'''link : LINKAPERTURA LINKB LINKCERRADURA '''
-	print ("link - https o fttps")
+	'''link : LINKAPERTURA HTTPS LINK LINKCERRADURA '''
+	print ("link https")
+
+def p_link3(p):
+	'''link : LINKAPERTURA FTP LINK LINKCERRADURA '''
+	print ("link ftp")
+
+def p_link4(p):
+	'''link : LINKAPERTURA FTPS LINK LINKCERRADURA '''
+	print ("link ftps")
 
 def p_title(p):
 	'''title : TITLEAPERTURA TEXTO TITLECERRADURA '''
@@ -119,12 +127,20 @@ def p_desc(p):
 	print ("desc")
 
 def p_url1(p):
-	'''url : URLAPERTURA LINKA URLCERRADURA '''
-	print ("url - http o fttp")
+	'''url : URLAPERTURA HTTP LINK URLCERRADURA '''
+	print ("url - http")
 
 def p_url2(p):
-	'''url : URLAPERTURA LINKB URLCERRADURA '''
-	print ("url - https o fttps")
+	'''url : URLAPERTURA HTTPS LINK URLCERRADURA '''
+	print ("url - https")
+
+def p_url3(p):
+	'''url : URLAPERTURA FTP LINK URLCERRADURA '''
+	print ("url - http")
+
+def p_url4(p):
+	'''url : URLAPERTURA FTPS LINK URLCERRADURA '''
+	print ("url - https")
 
 def p_item1(p):
 	'''item : ITEMAPERTURA contitem ITEMCERRADURA item '''
@@ -146,7 +162,7 @@ def p_contitem2(p):
 
 def p_error(p):
 	print("Error Sintaxis",p)
-	print("En la linea"+str(p.lineno))
+	print("En la linea "+str(p.lineno))
 
 #Procedimientos del Programa
 
@@ -211,7 +227,7 @@ def Manual():
 		if not cadena: continue
 	print ('\n')
 
-	parser = yacc.yacc()
+	parser = yacc.yacc(start='sigma')
 	result = parser.parse(cadena)
 	print(result)
 

@@ -6,7 +6,7 @@ import sys
  
 tokens = ['XMLCIERRE','XMLINICIO',
 		'NUMERO','CERRADURA',
-		'ENCODING',
+		'ENCODING','HTTP','HTTPS','FTP','FTPS',
 		'IMAGEAPERTURA',
 		'IMAGECERRADURA',
 		'TEXTO','VERSION',
@@ -25,7 +25,7 @@ tokens = ['XMLCIERRE','XMLINICIO',
 		'URLAPERTURA','URLCERRADURA',
 		'HEIGHTAPERTURA','HEIGHTCERRADURA',
 		'WIDTHAPERTURA','WIDTHCERRADURA',
-		'COPYRIGHTAPERTURA','COPYRIGHTCERRADURA','LINKA','LINKB']
+		'COPYRIGHTAPERTURA','COPYRIGHTCERRADURA','LINK','RANGOH','RANGOW']
 
 t_ignore = ' \t'
  
@@ -38,14 +38,34 @@ def t_ENCODING(t):
 	return (t)
 
 #PAG
-def t_LINKA(t):
-	r'[hf][t][t][p][:][/][/][a-zA-Z][a-zA-Z\.]*[a-zA-Z/][a-zA-Z0-9,-\.\s/?=:%&-()_#–/]*'
+def t_LINK(t):
+	r'[/][a-zA-Z][a-zA-Z\.]*[a-zA-Z/][a-zA-Z0-9,-\.\s/?=:%&-()_#–/]*'
 	return (t)
 
-def t_LINKB(t):
-	r'[hf][t][t][p][s][:][/][/][a-zA-Z][a-zA-Z\.]*[a-zA-Z/][a-zA-Z0-9,-\.\s/?=:%&-()_#–/]*'
+def t_HTTP(t):
+	r'[h][t][t][p][:][/]'
 	return (t)
 
+def t_HTTPS(t):
+	r'[h][t][t][p][s][:][/]'
+	return (t)
+
+def t_FTP(t):
+	r'[f][t][p][:][/]'
+	return (t)
+
+def t_FTPS(t):
+	r'[f][t][p][s][:][/]'
+	return (t)
+
+def t_RANGOW(t):
+	r'[0-1][0-9][0-9]'
+	return t
+
+def t_RANGOH(t):
+	r'[0-3][0-9][0-9]'
+	return t
+		
 
 t_XMLCIERRE= r'\?>'
 t_XMLINICIO= r'<\?xml'
@@ -92,7 +112,6 @@ def t_error(t):
 	t.lexer.skip(1)
 
 analizador = lex.lex()
-##############################################
 
 #def Inicio():
 #	print ("	LEXER - RSS 	")
@@ -163,29 +182,3 @@ analizador = lex.lex()
 #	print('')	
 #	salida=input('PRESIONE CUALQUIER TECLA PARA FINALIZAR...')
 #Inicio()
-
-########################################################
-
-# <?xml version="1.0" encoding="UTF-8" ?>
-# <rss version="2.0">
-# <channel>
-# <title>RSS de la cátedra de Sintaxis y Semántica de Lenguajes </title>
-# <link>https://frre.cvg.utn.edu.ar/course/view.php?id=399</link>
-# <description>Sintaxis y Semántica de Lenguajes de la U.T.N.F.R.Resistencia. </description>
-# <item>
-# <title>Planificacion 2022</title>
-# <link>https://</link>
-# <description>Planificacion de catedra, con cronograma de clases y evaluaciones</description>
-# </item>
-# <item>
-# <title>Guia de Trabajos practicos</title>
-# <link>https://</link>
-# <description>Guía de ejercicios propuestos a resolver en clase practica</description>
-# </item>
-# <item>
-# <title>Enunciado TPI</title>
-# <link>https://wl</link>
-# <description>Trabajo práctico integrador</description>
-# </item>
-# </channel>
-# </rss>
