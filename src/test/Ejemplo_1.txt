@@ -1,0 +1,34 @@
+<?xml version="1.0" ?>
+<rss version="2.0">
+<channel>
+<title>Campus Virtual UTN FREE</title>
+<link>https://frre.cvg.utn.edu.ar</link>
+<description>Perfil - Calificaciones - Preferencias - Cerrar Sesión</description>
+<copyright>Year 2022 UTN. FRRe. Licencia Creative Commons. Atribución-No Comercial-Compartir Igual(CC BY-NC-SA)</copyright>
+<image>
+	<url>http://frre.cvg.utn.edu.ar/image</url>
+	<title>Materias Actuales</title>
+	<link>http://frre.cvg.utn.edu.ar/course</link>
+	<height>320</height>
+	<width>140</width>
+</image>
+
+<item>
+<title>Perfil del Alumno</title>
+<link>https://frre.cvg.utn.edu.ar/user/profile.php</link>
+<description>Detalles de usuario, Privacidad y políticas, detalles del curso, miscelánea, informes, actividad de accesos</description>
+<category>Detalles de usuario</category>
+</item>
+<item>
+<title>Calificaciones</title>
+<link>https://frre.cvg.utn.edu.ar/grade/report/overview/index.php</link>
+<description>Nombre del curso/s: Análisis de sistemas, Gestión de Datos, Sistemas Operativos, Arquitectura de Computadoras</description>
+<category>Nombres de cursos actuales</category>
+</item>
+<item>
+<title>Preferencias</title>
+<link>https://frre.cvg.utn.edu.ar/user/preferences.php</link>
+<description>Cuenta de usuario, Blogs, Insignias</description>
+</item>
+</channel>
+</rss>

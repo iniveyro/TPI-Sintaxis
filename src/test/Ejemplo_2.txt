@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0">
+<channel>
+	<title>Twitter</title>
+	<link>https://twitter.com/home</link>
+	<description>Inicio – Buscar - Notificaciones - Mensajería</description>
+	<category>Nuevas Publicaciones</category>
+	<copyright>Year 2022 Twitter, Inc.</copyright>
+<image>
+	<url>https://twitter.com/home</url>
+	<title>Qué está pasando?</title>
+	<link>https://twitter.com</link>
+	<height>380</height>
+	<width>144</width>
+</image>
+<item>
+<title>Temas recomendados</title>
+<link>https://twitter.com/explore</link>
+<description>Para ti, Tendencias, COVID-19, Noticias, Deportes, Entretenimiento</description>
+</item>
+<item>
+<title>Notificaciones</title>
+<link>https://twitter.com/notifications</link>
+<description>A bzrp y 18.549 personas más les gusta tu publicación</description>
+<category>Todas</category>
+</item>
+<item>
+<title>Mensajería</title>
+<link>https://twitter.com/LionelMessi/lists</link>
+<description>Listas fijadas, Tus listas</description>
+</item>
+</channel>
+</rss>
